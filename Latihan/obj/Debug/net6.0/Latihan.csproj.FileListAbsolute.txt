@@ -85,3 +85,5 @@ E:\C#\Latihan\Latihan\bin\Debug\net6.0\System.Memory.Data.dll
 E:\C#\Latihan\Latihan\bin\Debug\net6.0\System.Text.Encodings.Web.dll
 E:\C#\Latihan\Latihan\bin\Debug\net6.0\System.Text.Json.dll
 E:\C#\Latihan\Latihan\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
+E:\C#\Latihan\Latihan\bin\Debug\net6.0\CloudinaryDotNet.dll
+E:\C#\Latihan\Latihan\bin\Debug\net6.0\Newtonsoft.Json.dll

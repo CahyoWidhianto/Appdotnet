@@ -2,6 +2,8 @@
 using Latihan.Interfaces;
 using Latihan.Models;
 using Latihan.Repository;
+using Latihan.Services;
+using Latihan.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,10 +11,13 @@ namespace Latihan.Controllers
 {
     public class RaceController : Controller
     {
+
+        private readonly IPhotoService _photoService;
         private readonly IRaceRepository _raceRepository;
-        public RaceController(IRaceRepository raceRepository) 
+        public RaceController(IRaceRepository raceRepository, IPhotoService photoService) 
         { 
             _raceRepository = raceRepository;
+            _photoService = photoService;
         }
         public async Task<IActionResult> Index()
         {
@@ -31,14 +36,31 @@ namespace Latihan.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(Race race)
+        public async Task<IActionResult> Create(CreateRaceViewModel raceVM)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-
+                var result = await _photoService.AddPhotoAsync(raceVM.Image);
+                var race = new Race
+                {
+                    Title = raceVM.Title,
+                    Description = raceVM.Description,
+                    Image = result.Url.ToString(),
+                    Address = new Address
+                    {
+                        Street = raceVM.Address.Street,
+                        City = raceVM.Address.City,
+                        State = raceVM.Address.State,
+                    }
+                };
+                _raceRepository.Add(race);
+                return RedirectToAction("Index");
             }
-            _raceRepository.Add(race);
-            return RedirectToAction("Index");
+            else
+            {
+                ModelState.AddModelError("", "Photo Upload Filed");
+            }
+            return View(raceVM);
         }
     }
 }
