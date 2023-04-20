@@ -1,9 +1,10 @@
 ﻿using Latihan.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Latihan.Data
 {
-    public class AplicationDbContext : DbContext
+    public class AplicationDbContext : IdentityDbContext<AppUser>
     {
         public AplicationDbContext(DbContextOptions<AplicationDbContext> options) : base(options)
         {
