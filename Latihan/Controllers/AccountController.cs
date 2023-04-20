@@ -26,7 +26,29 @@ namespace Latihan.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel loginViewModel)
         {
+            if(!ModelState.IsValid) return View(loginViewModel);
+            var user = await _userManager.FindByEmailAsync(loginViewModel.EmailAddress);
 
+            if(user != null)
+            {
+                //user found, check password
+                var passswordCheck = await _userManager.CheckPasswordAsync(user, loginViewModel.Password);
+                if (passswordCheck)
+                {
+                    // passsword correct, sign in
+                    var result = await _signInManager.PasswordSignInAsync(user, loginViewModel.Password, false, false);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("Index", "Race");
+                    }
+                }
+                // password is incorrect
+                TempData["Error"] = "Wrong credential. please, try again";
+                return View(loginViewModel);
+            }
+            // user not found
+            TempData["Error"] = "Wrong credential. please, try again";
+            return View(loginViewModel);
         }
     }
 }

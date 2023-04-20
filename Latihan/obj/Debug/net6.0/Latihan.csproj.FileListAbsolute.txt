@@ -87,3 +87,8 @@ E:\C#\Latihan\Latihan\bin\Debug\net6.0\System.Text.Json.dll
 E:\C#\Latihan\Latihan\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
 E:\C#\Latihan\Latihan\bin\Debug\net6.0\CloudinaryDotNet.dll
 E:\C#\Latihan\Latihan\bin\Debug\net6.0\Newtonsoft.Json.dll
+E:\C#\Latihan\Latihan\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+E:\C#\Latihan\Latihan\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+E:\C#\Latihan\Latihan\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+E:\C#\Latihan\Latihan\bin\Debug\net6.0\Microsoft.Extensions.Identity.Core.dll
+E:\C#\Latihan\Latihan\bin\Debug\net6.0\Microsoft.Extensions.Identity.Stores.dll
