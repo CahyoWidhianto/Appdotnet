@@ -80,7 +80,7 @@ namespace Latihan.Controllers
             return RedirectToAction("Index", "Race");
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
