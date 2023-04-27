@@ -15,10 +15,12 @@ namespace Latihan.Controllers
 
         private readonly IPhotoService _photoService;
         private readonly IRaceRepository _raceRepository;
-        public RaceController(IRaceRepository raceRepository, IPhotoService photoService) 
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public RaceController(IRaceRepository raceRepository, IPhotoService photoService, IHttpContextAccessor httpContextAccessor) 
         { 
             _raceRepository = raceRepository;
             _photoService = photoService;
+            _httpContextAccessor = httpContextAccessor;
         }
         public async Task<IActionResult> Index()
         {
@@ -34,7 +36,9 @@ namespace Latihan.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            var cueUserId = _httpContextAccessor.HttpContext?.User.GetUserId();
+            var createdRaceViewModel = new CreateRaceViewModel { AppUserId = cueUserId };
+            return View(createdRaceViewModel);
         }
         [HttpPost]
         public async Task<IActionResult> Create(CreateRaceViewModel raceVM)
@@ -47,6 +51,7 @@ namespace Latihan.Controllers
                     Title = raceVM.Title,
                     Description = raceVM.Description,
                     Image = result.Url.ToString(),
+                    AppUserId = raceVM.AppUserId,
                     Address = new Address
                     {
                         Street = raceVM.Address.Street,

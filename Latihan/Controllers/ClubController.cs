@@ -11,10 +11,12 @@ namespace Latihan.Controllers
     {
         private readonly IClubRepository _clubRepository;
         private readonly IPhotoService _photoService;
-        public ClubController(IClubRepository clubRepository, IPhotoService photo)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public ClubController(IClubRepository clubRepository, IPhotoService photo, IHttpContextAccessor httpContextAccessor)
         {
             _clubRepository = clubRepository;
             _photoService = photo;
+            _httpContextAccessor = httpContextAccessor;
         }
         public async Task <IActionResult> Index()
         {
@@ -29,7 +31,9 @@ namespace Latihan.Controllers
         }
         public IActionResult Create()
         {
-            return View();
+            var cueUserId = _httpContextAccessor.HttpContext?.User.GetUserId();
+            var createdClubViewModel = new CreateClubViewModel { AppUserId = cueUserId };
+            return View(createdClubViewModel);
         }
         [HttpPost]
         public async Task<IActionResult> Create(CreateClubViewModel clubVM)
@@ -42,6 +46,7 @@ namespace Latihan.Controllers
                     Title = clubVM.Title,
                     Description = clubVM.Description,
                     Image = result.Url.ToString(),
+                    AppUserId = clubVM.AppUserId,
                     Address = new Address
                     {
                         Street = clubVM.Address.Street,
